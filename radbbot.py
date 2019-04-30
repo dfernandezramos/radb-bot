@@ -16,6 +16,7 @@ MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
 # commands
 RADB_STATUS_COMMAND = "status"
 HELP_COMMAND = "help"
+PAELLA_STATUS_COMMAND = "paella"
 
 def parse_bot_commands(slack_events):
     """
@@ -48,7 +49,7 @@ def handle_command(command, channel):
 
     if command.startswith (HELP_COMMAND):
         del response[:]
-        response.append("These are the commands you can ask me to respond:\n*{}*".format(RADB_STATUS_COMMAND))
+        response.append("These are the commands you can ask me to respond:\n*{}*\nOr use one of the secret commands".format(RADB_STATUS_COMMAND))
 
     if command.startswith (RADB_STATUS_COMMAND):
         del response[:]
@@ -72,6 +73,10 @@ def handle_command(command, channel):
             temp = temp + "All Riot endpoints: :white_check_mark:"
 
         response.append(temp)
+
+    if command.startswith (PAELLA_STATUS_COMMAND):
+        del response[:]
+        response.append("La paella es sin pimiento!")
     
     # sends the response back to the channel
     for message in response:
